@@ -1,0 +1,115 @@
+/* ProfileGlobal.css */
+.profile-global {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    background: linear-gradient(-140deg, #ff65c5, #fa909d, #fcce6c);
+    color: #575556;
+    font-family: "Euclid Circular A", "Poppins";
+  }
+  
+  .profile-global * {
+    box-sizing: border-box;
+  }
+  
+  .profile-global .profileCard {
+    display: flex;
+    align-items: center;
+    width: 75vw;
+    max-width: 650px;
+    padding: 50px 30px 50px 20px;
+    background: #ffffff;
+    border-radius: 24px;
+  }
+  
+  .profile-global .profileImage {
+    max-width: 280px;
+    width: 32vw;
+    height: 270px;
+    object-fit: cover;
+    margin-left: -60px;
+    margin-right: 40px;
+    border-radius: inherit;
+  }
+  
+  .profile-global .profileForm {
+    /* Estilos específicos para el formulario de edición */
+  }
+  
+  .profile-global .profileStats {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+  }
+  
+  .profile-global .profileStats var {
+    display: block;
+    font-style: normal;
+    font-size: 26px;
+  }
+  
+  .profile-global .profileStats label {
+    opacity: 0.5;
+  }
+  
+  .profile-global .profileButtons {
+    display: inline-flex;
+    gap: 10px;
+  }
+  
+  .profile-global .profilePrimary {
+    border: 1px solid #a7a7a7;
+    background: #fe5c89;
+    color: #f9f9f9;
+    border: 0;
+    font-family: inherit;
+    padding: 16px 20px;
+    font-size: 18px;
+    border-radius: 6px;
+    min-width: 120px;
+  }
+  
+  .profile-global button {
+    border: 1px solid #a7a7a7;
+    background: transparent;
+    color: #a7a7a7;
+    font-family: inherit;
+    padding: 16px 20px;
+    font-size: 18px;
+    border-radius: 6px;
+    min-width: 120px;
+  }
+  
+  @media (max-width: 720px) {
+    .profile-global .profileCard {
+      margin: 0 40px;
+      padding-left: 50px;
+      padding-right: 50px;
+      width: 100%;
+      text-align: center;
+      flex-direction: column;
+    }
+  
+    .profile-global .profileCard h2 {
+      font-size: 30px;
+    }
+  
+    .profile-global .profileImage {
+      margin: -100px 0 30px 0;
+      width: 100%;
+      max-width: 1000px;
+    }
+  
+    .profile-global .profileStats var {
+      min-width: 90px;
+    }
+  
+    .profile-global button {
+      min-width: 160px;
+    }
+  }
+  
