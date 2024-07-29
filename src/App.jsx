@@ -1,24 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
-import './App.css';
-import Home from './components/Home.jsx';
-import Login from './components/Login.jsx';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './context/AuthProvider';
+import Login from './components/Login';
+// import Profile from './components/Profile';
+import Home from './components/Home';
+import ErrorPage from './components/ErrorPage';
 
-function App() {
+const App = () => {
   return (
     <Router>
-      <div className="App">
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/login">Login</Link>
-        </nav>
+      <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          {/* <Route path="/profile" element={<Profile />} /> */}
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
-      </div>
+      </AuthProvider>
     </Router>
   );
-}
+};
 
 export default App;
