@@ -40,3 +40,73 @@
 .read-the-docs {
   color: #888;
 }
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -2; /* Asegúrate de que esté detrás del blur-overlay */
+}
+
+.background-row {
+  display: flex;
+  width: 300%; /* Ajusta el ancho para permitir el desplazamiento */
+  height: 33.33%;
+  position: absolute;
+}
+
+.background-image {
+  width: 33.33%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.row1 {
+  top: 0;
+  animation: moveLeft 10s linear infinite;
+}
+
+.row2 {
+  top: 33.33%;
+  animation: moveRight 10s linear infinite;
+}
+
+.row3 {
+  top: 66.66%;
+  animation: moveLeft 10s linear infinite;
+}
+
+@keyframes moveLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-66.66%); /* Ajusta para mover una fila completa */
+  }
+}
+
+@keyframes moveRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(66.66%); /* Ajusta para mover una fila completa */
+  }
+}
+
+.blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  z-index: -1; /* Asegúrate de que esté detrás del contenido principal */
+}
+
+.logo {
+  display: block;
+  margin: 0 auto;
+}
