@@ -1,0 +1,117 @@
+body,
+html {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  background: linear-gradient(-140deg, #ff65c5, #fa909d, #fcce6c);
+  color: #575556;
+  font-family: "Euclid Circular A", "Poppins";
+}
+.profileCard {
+    display: flex;
+    align-items: center;
+    width: 75vw;
+    max-width: 650px;
+    padding: 50px 30px 50px 20px;
+    background: #ffffff;
+    border-radius: 24px;
+  }
+  
+  .profileImage {
+    max-width: 280px;
+    width: 32vw;
+    height: 270px;
+    object-fit: cover;
+    margin-left: -60px;
+    margin-right: 40px;
+    border-radius: inherit;
+  }
+  
+  .profileForm {
+    /* Aquí puedes agregar los estilos específicos para el formulario de edición */
+  }
+  
+  .profileStats {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+  }
+  
+  .profileStats var {
+    display: block;
+    font-style: normal;
+    font-size: 26px;
+  }
+  
+  .profileStats label {
+    opacity: 0.5;
+  }
+  
+  .profileButtons {
+    display: inline-flex;
+    gap: 10px;
+  }
+  
+  .profilePrimary {
+    border: 1px solid #a7a7a7;
+    background: #fe5c89;
+    color: #f9f9f9;
+    border: 0;
+    font-family: inherit;
+    padding: 16px 20px;
+    font-size: 18px;
+    border-radius: 6px;
+    min-width: 120px;
+  }
+  
+  button {
+    border: 1px solid #a7a7a7;
+    background: transparent;
+    color: #a7a7a7;
+    font-family: inherit;
+    padding: 16px 20px;
+    font-size: 18px;
+    border-radius: 6px;
+    min-width: 120px;
+  }
+  
+  @media (max-width: 720px) {
+    .profileCard {
+      margin: 0 40px;
+      padding-left: 50px;
+      padding-right: 50px;
+      width: 100%;
+      text-align: center;
+      flex-direction: column;
+    }
+  
+    .profileCard h2 {
+      font-size: 30px;
+    }
+  
+    .profileImage {
+      margin: -100px 0 30px 0;
+      width: 100%;
+      max-width: 1000px;
+    }
+  
+    .profileStats var {
+      min-width: 90px;
+    }
+  
+    button {
+      min-width: 160px;
+    }
+  }
+  
