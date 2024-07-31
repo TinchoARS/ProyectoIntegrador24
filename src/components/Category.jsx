@@ -1,5 +1,5 @@
 function Category({name,description}) {
-    return(<div className="category" style={{backgroundColor: 'red'}}>
+    return(<div className="category" >
         <h1>{name}</h1>
         <p>{description}</p>
 

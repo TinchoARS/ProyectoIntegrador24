@@ -1,0 +1,41 @@
+.Header {
+  background-color: #89a7b1; 
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.container-responsive {
+  justify-content: space-between;
+  align-items: center;
+  margin:10px;
+  width: 100%;
+}
+
+.menu-icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.main-nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.content {
+  margin-top: 80px; 
+  padding: 20px;
+}
