@@ -7,7 +7,7 @@ import Profile from "./components/Profile";
 import Home from "./components/Home";
 import ErrorPage from "./components/ErrorPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
-
+import NuevaCategoria from "./components/NuevaCategoria";
 const App = () => {
     return (
         <Router>
@@ -23,6 +23,7 @@ const App = () => {
                             </ProtectedRoute>
                         }
                     />
+                    <Route path="/categories/new" element={<NuevaCategoria />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
             </AuthProvider>
