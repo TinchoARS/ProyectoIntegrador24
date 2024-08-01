@@ -1,5 +1,6 @@
 import '../assets/Header.css';
-function Header({ onMouseEnter, onMouseLeave }) {
+function Header({ onMouseEnter, onMouseLeave }) { 
+  //props que reciben funciones para cuando el mouse esta arriba del icono
   return (
     <header className="Header">
       <div className="container-responsive">

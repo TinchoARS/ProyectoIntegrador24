@@ -26,4 +26,17 @@
   font-size: 10px;
 }
 
+.add-category {
+  background-color: #f4a261; /* Puedes elegir el color que prefieras */
+  border: #d7c8b6 2px solid;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 10px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
 
+.add-category:hover {
+  background-color: #e76f51; /* Cambia el color en hover si lo deseas */
+}

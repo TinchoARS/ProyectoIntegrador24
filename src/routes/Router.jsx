@@ -4,7 +4,7 @@ import Home from "../components/Home";
 import Login from "../components/Auth/Login";
 import Layout from "./Layout";
 import ProtectedRoute from "./ProtectedRoute";
-
+import NuevaCategoria from "../components/NuevaCategoria"; 
 const Router = createBrowserRouter([
     {
         element: <Layout />,
@@ -33,6 +33,10 @@ const Router = createBrowserRouter([
             {
                 path: "login",
                 element: <Login />,
+            },
+            {
+                path:"categories/new",
+                element:<NuevaCategoria />,
             },
         ],
     },
