@@ -8,6 +8,7 @@ import Home from "./components/Home";
 import ErrorPage from "./components/ErrorPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import NuevaCategoria from "./components/NuevaCategoria";
+import Articles from "./components/Articles";
 const App = () => {
     return (
         <Router>
@@ -24,6 +25,7 @@ const App = () => {
                         }
                     />
                     <Route path="/categories/new" element={<NuevaCategoria />} />
+                    <Route path="articles" element={<Articles />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
             </AuthProvider>
