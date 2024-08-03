@@ -1,24 +1,37 @@
 import '../assets/Header.css';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
+import menuIcon from '../assets/menu-icon.svg';
+import logo from '../assets/log-news-home.png';
+
 function Header({ onMouseEnter, onMouseLeave }) { 
-  //props que reciben funciones para cuando el mouse esta arriba del icono
   return (
-    <header className="Header">
-      <div className="container-responsive">
-        <nav className="main-nav">
-          <div 
-            className="menu-icon" 
-            onMouseEnter={onMouseEnter} 
-            onMouseLeave={onMouseLeave}
-          >
-            <img src="/src/assets/menu-icon.svg" alt="Menu Icon" />
-          </div>
-          <h1>Noticiero local</h1>
-          <a href="/" className="nav-link">Home</a>
-          <a href="/about" className="nav-link">About</a>
-        </nav>
-      </div>
-    </header>
+    <Navbar expand="lg" className="fixed-top" data-bs-theme="light" style={{ backgroundColor: '#566981' }}>
+      <Navbar.Brand href="#Home ">
+        <img
+          src={logo}
+          alt="Logo"
+          width="60"
+          height="60"
+          className="d-inline-block align-center"
+        />{' '}
+        El Tributo
+      </Navbar.Brand>
+      <Nav className="me-auto" style= {{marginLeft:'20px'}}>
+        <div
+          className="menu-icon"
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        >
+          <img src={menuIcon} alt="Menu Icon" width="30"
+          height="30"
+           />
+        </div>
+      </Nav>
+    </Navbar>
   );
+
 }
 
 export default Header;

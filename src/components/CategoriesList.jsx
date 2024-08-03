@@ -2,30 +2,33 @@ import React from "react";
 import useFetch from "../hooks/useFetch";
 import { Link } from "react-router-dom";
 import Category from "./Category";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function CategoriesList() {
-    const [categories, isError, isLoading] = useFetch(
-        "https://sandbox.academiadevelopers.com/infosphere/categories/");
-    if (isLoading) return <p>Cargando...</p>;
-    if (isError) return <p>Error al cargar categorielist</p>;
+  const [categories, isError, isLoading] = useFetch(
+      "https://sandbox.academiadevelopers.com/infosphere/categories/");
+  if (isLoading) return <p>Cargando...</p>;
+  if (isError) return <p>Error al cargar categorielist</p>;
 
-    return (
-        <div>
-          <h2>Lista de Categorías</h2>
-          <ul>
-            {categories.results.map((category) => (
-              <li key={category.id}>
-                <Link to={`/seccion/${category.name}`}>
-                            <Category name={category.name} description={category.description} />
-                        </Link></li>
-            ))}
-            <li className="add-category">
-              <Link to="/categories/new">
-                Agregar Categoría
-              </Link>
-            </li>
+  return (
+      <div className="categories-list text-white p-3" style={{ backgroundColor: '#89a7b1' }}>
+          <h2 className="text-center">Lista de Categorías</h2>
+          <ul className="list-unstyled d-flex flex-wrap justify-content-center gap-3">
+              {categories.results.map((category) => (
+                  <li key={category.id} className="category-item bg-light border rounded p-2">
+                      <Link to={`/seccion/${category.name}`} className="text-decoration-none" style={{color: 'black'}}>
+                          <Category name={category.name} description={category.description} />
+                      </Link>
+                  </li>
+              ))}
+              <li className="add-category bg-warning text-center rounded p-2">
+                  <Link to="/categories/new" className="text-decoration-none text-dark">
+                      Agregar Categoría
+                  </Link>
+              </li>
           </ul>
-        </div>
-      );
-                }
+      </div>
+  );
+}
+
 export default CategoriesList;
