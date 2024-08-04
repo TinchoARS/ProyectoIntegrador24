@@ -9,6 +9,7 @@ import ErrorPage from "./components/ErrorPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import NuevaCategoria from "./components/NuevaCategoria";
 import Articles from "./components/Articles";
+import Reactions from "./components/Reactions";
 const App = () => {
     return (
         <Router>
@@ -26,6 +27,7 @@ const App = () => {
                     />
                     <Route path="/categories/new" element={<NuevaCategoria />} />
                     <Route path="articles" element={<Articles />} />
+                    <Route path="reactions" element={<Reactions />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
             </AuthProvider>

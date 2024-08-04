@@ -6,6 +6,7 @@ import Layout from "./Layout";
 import ProtectedRoute from "./ProtectedRoute";
 import NuevaCategoria from "../components/NuevaCategoria";
 import Articles from "../components/Articles";
+import Reactions from "../components/Reactions";
 
 const Router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const Router = createBrowserRouter([
                 path:"categories/new",
                 element:<NuevaCategoria />,
             },
+            {
+                path: "reactions",
+                element: <Reactions />,
+            }
         ],
     },
     {
