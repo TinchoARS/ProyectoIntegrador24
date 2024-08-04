@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function CategoriesList() {
   const [categories, isError, isLoading] = useFetch(
-      "https://sandbox.academiadevelopers.com/infosphere/categories/");
+      "https://sandbox.academiadevelopers.com/infosphere/categories/?page=2");
   if (isLoading) return <p>Cargando...</p>;
   if (isError) return <p>Error al cargar categorielist</p>;
 
@@ -24,6 +24,16 @@ function CategoriesList() {
               <li className="add-category bg-warning text-center rounded p-2">
                   <Link to="/categories/new" className="text-decoration-none text-dark">
                       Agregar Categoría
+                  </Link>
+              </li>
+              <li className="add-category bg-warning text-center rounded p-2">
+                  <Link to="/categories/edit" className="text-decoration-none text-dark">
+                      Editar Categoría
+                  </Link>
+              </li>
+              <li className="add-category bg-warning text-center rounded p-2">
+                  <Link to="/categories/delete" className="text-decoration-none text-dark">
+                      Eliminar Categoría
                   </Link>
               </li>
           </ul>

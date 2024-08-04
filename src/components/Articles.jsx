@@ -5,10 +5,12 @@ function Articles() {
   return (
     <div>
       <h1>Artículos</h1>
+      <Comments/>
     </div>
   );
 }
-
+export default Articles;
+/*
 export default class Articles extends Component {
   render() {
     return (
@@ -16,4 +18,4 @@ export default class Articles extends Component {
       
     )
   }
-}
+}*/

@@ -9,6 +9,8 @@ import ErrorPage from "./components/ErrorPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import NuevaCategoria from "./components/NuevaCategoria";
 import Articles from "./components/Articles";
+import EditarCategoria from "./components/EditarCategoria";
+import EliminarCategoria from "./components/EliminarCategoria";
 const App = () => {
     return (
         <Router>
@@ -27,6 +29,8 @@ const App = () => {
                     <Route path="/categories/new" element={<NuevaCategoria />} />
                     <Route path="articles" element={<Articles />} />
                     <Route path="*" element={<ErrorPage />} />
+                    <Route path="/categories/edit" element={<EditarCategoria />} />
+                    <Route path="/categories/delete" element={<EliminarCategoria />} />
                 </Routes>
             </AuthProvider>
         </Router>
