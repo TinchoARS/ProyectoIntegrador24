@@ -1,4 +1,3 @@
-// App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
@@ -11,6 +10,7 @@ import NuevaCategoria from "./components/NuevaCategoria";
 import Articles from "./components/Articles";
 import EditarCategoria from "./components/EditarCategoria";
 import EliminarCategoria from "./components/EliminarCategoria";
+import Reactions from "./components/Reactions";
 const App = () => {
     return (
         <Router>
@@ -28,6 +28,7 @@ const App = () => {
                     />
                     <Route path="/categories/new" element={<NuevaCategoria />} />
                     <Route path="articles" element={<Articles />} />
+                    <Route path="reactions" element={<Reactions />} />
                     <Route path="*" element={<ErrorPage />} />
                     <Route path="/categories/edit" element={<EditarCategoria />} />
                     <Route path="/categories/delete" element={<EliminarCategoria />} />
