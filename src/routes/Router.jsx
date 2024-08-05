@@ -8,6 +8,7 @@ import NuevaCategoria from "../components/NuevaCategoria";
 import Articles from "../components/Articles";
 import EditarCategoria from "../components/EditarCategoria";
 import EliminarCategoria from "../components/EliminarCategoria";
+import CategoryArticles from "../components/CategoryArticles";
 
 const Router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ const Router = createBrowserRouter([
             {
                path:"categories/delete",
                element:<EliminarCategoria />,
+            },
+            {
+                path: "seccion/:categoriaNombre",
+                element: <CategoryArticles />,
             },
         ],
     },

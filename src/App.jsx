@@ -11,6 +11,7 @@ import Articles from "./components/Articles";
 import EditarCategoria from "./components/EditarCategoria";
 import EliminarCategoria from "./components/EliminarCategoria";
 import Reactions from "./components/Reactions";
+import CategoryArticles from "./components/CategoryArticles";
 const App = () => {
     return (
         <Router>
@@ -32,6 +33,7 @@ const App = () => {
                     <Route path="*" element={<ErrorPage />} />
                     <Route path="/categories/edit" element={<EditarCategoria />} />
                     <Route path="/categories/delete" element={<EliminarCategoria />} />
+                    <Route path="/seccion/:categoriaNombre" element={<CategoryArticles />} />
                 </Routes>
             </AuthProvider>
         </Router>
