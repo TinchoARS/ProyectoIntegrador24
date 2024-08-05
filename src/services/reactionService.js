@@ -1,67 +1,46 @@
-// src/services/reactionService.js
-const API_URL = 'https://sandbox.academiadevelopers.com/infosphere/reactions/';
+let localReactions = [];
+let nextLocalId = 1;
 
-const getReactions = async (page = 1, pageSize = 10) => {
-  const response = await fetch(`${API_URL}?page=${page}&page_size=${pageSize}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch reactions');
-  }
-  return response.json();
-};
+const reactionService = {
+  initializeReactions: async () => {
+    const response = await fetch('https://sandbox.academiadevelopers.com/infosphere/reactions/');
+    const data = await response.json();
+    localReactions = data.results;
+    nextLocalId = Math.max(...localReactions.map(r => r.id), 0) + 1;
+    console.log('Reacciones inicializadas:', localReactions);
+    return localReactions;
+  },
 
-const addReaction = async (token, name, description = '', fontAwesomeIcon = '') => {
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Token ${token}`,
-    },
-    body: JSON.stringify({ name, description, font_awesome_icon: fontAwesomeIcon }),
-  });
+  getReactions: () => {
+    console.log('Obteniendo reacciones:', localReactions);
+    return Promise.resolve(localReactions);
+  },
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.detail || 'Fallo al agregar reacción');
-  }
+  addReaction: (newReaction) => {
+    const reactionWithId = { ...newReaction, id: nextLocalId++ };
+    localReactions = [...localReactions, reactionWithId];
+    console.log('Reacción agregada:', reactionWithId);
+    console.log('Estado actual de reacciones:', localReactions);
+    return Promise.resolve(reactionWithId);
+  },
 
-  return response.json();
-};
+  updateReaction: (id, updatedReaction) => {
+    const index = localReactions.findIndex(r => r.id === id);
+    if (index !== -1) {
+      localReactions[index] = { ...localReactions[index], ...updatedReaction };
+      return Promise.resolve(localReactions[index]);
+    }
+    return Promise.reject(new Error('Reaction not found'));
+  },
 
-const updateReaction = async (token, reactionId, name, description = '', fontAwesomeIcon = '') => {
-  const response = await fetch(`${API_URL}${reactionId}/`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Token ${token}`,
-    },
-    body: JSON.stringify({ name, description, font_awesome_icon: fontAwesomeIcon }),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.detail || 'Fallo al actualizar reacción');
-  }
-
-  return response.json();
-};
-
-const deleteReaction = async (token, reactionId) => {
-  const response = await fetch(`${API_URL}${reactionId}/`, {
-    method: 'DELETE',
-    headers: {
-      'Authorization': `Token ${token}`,
-    },
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.detail || 'Fallo al eliminar reacción');
+  deleteReaction: (id) => {
+    const index = localReactions.findIndex(r => r.id === id);
+    if (index !== -1) {
+      localReactions.splice(index, 1);
+      return Promise.resolve();
+    }
+    return Promise.reject(new Error('Reaction not found'));
   }
 };
 
-export default {
-  getReactions,
-  addReaction,
-  updateReaction,
-  deleteReaction,
-};
+export default reactionService;

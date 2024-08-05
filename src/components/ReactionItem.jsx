@@ -1,45 +1,24 @@
-// src/components/ReactionItem.jsx
-import React, { useState } from 'react';
-import reactionService from '../services/reactionService';
+import React, { useState, useEffect } from 'react';
 
 function ReactionItem({ reaction, onReactionUpdated, onReactionDeleted }) {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(reaction.name);
   const [description, setDescription] = useState(reaction.description);
   const [fontAwesomeIcon, setFontAwesomeIcon] = useState(reaction.font_awesome_icon);
-  const [error, setError] = useState(null);
 
-  const handleUpdate = async () => {
-    const token = localStorage.getItem('token');
+  useEffect(() => {
+    setName(reaction.name);
+    setDescription(reaction.description);
+    setFontAwesomeIcon(reaction.font_awesome_icon);
+  }, [reaction]);
 
-    if (!token) {
-      setError('Debes iniciar sesión para editar una reacción.');
-      return;
-    }
-
-    try {
-      await reactionService.updateReaction(token, reaction.id, name, description, fontAwesomeIcon);
-      setIsEditing(false);
-      onReactionUpdated();
-    } catch (error) {
-      setError(error.message);
-    }
+  const handleUpdate = () => {
+    onReactionUpdated(reaction.id, { name, description, font_awesome_icon: fontAwesomeIcon });
+    setIsEditing(false);
   };
 
-  const handleDelete = async () => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      setError('Debes iniciar sesión para eliminar una reacción.');
-      return;
-    }
-
-    try {
-      await reactionService.deleteReaction(token, reaction.id);
-      onReactionDeleted();
-    } catch (error) {
-      setError(error.message);
-    }
+  const handleDelete = () => {
+    onReactionDeleted(reaction.id);
   };
 
   return (
@@ -67,13 +46,12 @@ function ReactionItem({ reaction, onReactionUpdated, onReactionDeleted }) {
         </div>
       ) : (
         <div>
-          <p>{reaction.name} <i className={reaction.font_awesome_icon}></i></p>
-          <p>{reaction.description}</p>
+          <p>{name} <i className={fontAwesomeIcon}></i></p>
+          <p>{description}</p>
           <button onClick={() => setIsEditing(true)}>Edit</button>
           <button onClick={handleDelete}>Delete</button>
         </div>
       )}
-      {error && <div className="error">{error}</div>}
     </li>
   );
 }
