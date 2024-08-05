@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function CategoriesList() {
   const [categories, isError, isLoading] = useFetch(
-      "https://sandbox.academiadevelopers.com/infosphere/categories/?page=2");
+      "https://sandbox.academiadevelopers.com/infosphere/categories/?page=1");
   if (isLoading) return <p>Cargando...</p>;
   if (isError) return <p>Error al cargar categorielist</p>;
 

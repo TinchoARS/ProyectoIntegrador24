@@ -4,12 +4,17 @@ function useFetch(url, options = {}) {
     const [data, setData] = useState();
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-
+//prevenir logica innecesaria cuando no hay url valida
     useEffect(() => {
+        if (!url) {
+            setData(null);
+            setIsLoading(false);
+            return;
+        }
+
         setData(null);
         setIsError(false);
         setIsLoading(true);
-
         fetch(url, { ...options })
             .then((res) => {
                 if (!res.ok) {
