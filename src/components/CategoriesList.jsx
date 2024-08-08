@@ -1,8 +1,10 @@
 import React from "react";
 import useFetch from "../hooks/useFetch";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Category from "./Category";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col, Button } from "react-bootstrap";
+import '../assets/CategorieList.css';
 
 function CategoriesList() {
   const [categories, isError, isLoading] = useFetch(
@@ -10,35 +12,35 @@ function CategoriesList() {
   if (isLoading) return <p>Cargando...</p>;
   if (isError) return <p>Error al cargar categorielist</p>;
 
-  return (
-      <div className="categories-list text-white p-3" style={{ backgroundColor: '#89a7b1' }}>
-          <h2 className="text-center">Lista de Categorías</h2>
-          <ul className="list-unstyled d-flex flex-wrap justify-content-center gap-3">
-              {categories.results.map((category) => (
-                  <li key={category.id} className="category-item bg-light border rounded p-2">
-                      <Link to={`/seccion/${category.name}`} className="text-decoration-none" style={{color: 'black'}}>
-                          <Category name={category.name} description={category.description} />
-                      </Link>
-                  </li>
-              ))}
-              <li className="add-category bg-warning text-center rounded p-2">
-                  <Link to="/categories/new" className="text-decoration-none text-dark">
-                      Agregar Categoría
-                  </Link>
-              </li>
-              <li className="add-category bg-warning text-center rounded p-2">
-                  <Link to="/categories/edit" className="text-decoration-none text-dark">
-                      Editar Categoría
-                  </Link>
-              </li>
-              <li className="add-category bg-warning text-center rounded p-2">
-                  <Link to="/categories/delete" className="text-decoration-none text-dark">
-                      Eliminar Categoría
-                  </Link>
-              </li>
-          </ul>
-      </div>
-  );
+return (
+    <Container className="mt-5">
+        <Row className="justify-content-center">
+            <h2 className="mb-4 text-center text-white" >Lista de Categorías</h2>
+            {categories.results.map((category) => (
+                <Col key={category.id} xs={12} sm={6} md={4} lg={3} className="mb-3">
+                    <Link to={`/seccion/${category.name}`} className="category-link">
+                        <Category name={category.name} description={category.description} />
+                    </Link>
+                </Col>
+            ))}
+            <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                <Link to="/categories/new" className="btn btn-success  w-50">
+                    Agregar Categoría
+                </Link>
+            </Col>
+            <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                <Link to="/categories/edit" className="btn btn-warning w-50">
+                    Editar Categoría
+                </Link>
+            </Col>
+            <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                <Link to="/categories/delete" className="btn btn-danger w-50">
+                    Eliminar Categoría
+                </Link>
+            </Col>
+        </Row>
+    </Container>
+);
 }
 
 export default CategoriesList;

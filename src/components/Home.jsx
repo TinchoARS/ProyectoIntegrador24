@@ -49,11 +49,6 @@ const Home = () => {
             <p>Descubre las categorías más populares y relevantes.</p>
           </Col>
         </Row>
-        <Row className="my-5">
-          <Col>
-            <h2>Carousel de Noticias</h2>
-          </Col>
-        </Row>
       </Container>
     </div>
   );
