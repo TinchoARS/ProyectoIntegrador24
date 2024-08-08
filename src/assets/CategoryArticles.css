@@ -1,0 +1,50 @@
+.color1 {
+  color: #cbdad5;
+}
+
+.color2 {
+  color: #89a7b1;
+}
+
+.color3 {
+  color: #566981;
+}
+
+.color4 {
+  color: #3a415a;
+}
+
+.color5 {
+  color: #34344e;
+}
+
+.home-container {
+  background-color: var(--color1);
+}
+
+.article-list .article-card {
+  background-color: var(--color1);
+  border-color: var(--color2);
+}
+
+.article-image {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.add-category {
+  background-color: var(--color3);
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.add-category a {
+  color: white;
+  text-decoration: none;
+}
+
+.add-category:hover {
+  background-color: var(--color4);
+}
