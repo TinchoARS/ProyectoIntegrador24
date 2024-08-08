@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import { Link } from "react-router-dom";
+import Comments from './Comments';
 
 function CategoryArticles() {
     const { categoriaNombre } = useParams();
@@ -59,6 +60,13 @@ function CategoryArticles() {
                 {articles.length > 0 ? (
                     articles.map(article => (
                         <li key={article.id}>
+                            <li> {article.image && (
+                               <img 
+                               src={article.image} 
+                               alt={article.title} 
+                               style={{ width: '250px', height: '250px', objectFit: 'cover' }} 
+                           />
+                            )}</li>
                             {article.title}
                             <div>
                                 <Link to={`/articles/edit/${article.id}`} className="btn btn-primary mx-1">
@@ -68,6 +76,7 @@ function CategoryArticles() {
                                     Eliminar
                                 </Link>
                             </div>
+                            <Comments articleId={article.id} />
                         </li>
                     ))
                 ) : (

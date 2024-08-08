@@ -12,6 +12,7 @@ import CategoryArticles from "../components/CategoryArticles";
 import NuevoArticulo from "../components/NuevoArticulo";
 import EditarArticulo from "../components/EditarArticulo";
 import EliminarArticulo from "../components/EliminarArticulo";
+import EditArticleCategory from "../components/EditArticleCategory";
 
 const Router = createBrowserRouter([
     {
@@ -70,6 +71,10 @@ const Router = createBrowserRouter([
             {
                 path: "articles/delete/:articleId",
                 element: <EliminarArticulo />,
+            },
+            {
+                path: "articles/:articleId/edit-categories",
+                element: <EditArticleCategory />,
             },
         ],
     },
