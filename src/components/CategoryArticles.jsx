@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
+import { Link } from "react-router-dom";
 
 function CategoryArticles() {
     const { categoriaNombre } = useParams();
@@ -47,10 +48,27 @@ function CategoryArticles() {
     return (
         <div>
             <h1>Artículos de la categoría {categoriaNombre}</h1>
-            <ul>
+            <ul className="list-unstyled d-flex flex-wrap justify-content-center gap-3">
+            <li className="add-category bg-warning text-center rounded p-2">
+                  <Link to={`/articles/new`}>
+                      Agregar Articulo
+                  </Link>
+              </li>
+            </ul>
+             <ul>
                 {articles.length > 0 ? (
                     articles.map(article => (
-                        <li key={article.id}>{article.title}</li>
+                        <li key={article.id}>
+                            {article.title}
+                            <div>
+                                <Link to={`/articles/edit/${article.id}`} className="btn btn-primary mx-1">
+                                    Editar
+                                </Link>
+                                <Link to={`/articles/delete/${article.id}`} className="btn btn-danger mx-1">
+                                    Eliminar
+                                </Link>
+                            </div>
+                        </li>
                     ))
                 ) : (
                     <p>No hay artículos para esta categoría.</p>
