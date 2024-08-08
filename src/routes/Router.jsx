@@ -9,6 +9,10 @@ import Articles from "../components/Articles";
 import EditarCategoria from "../components/EditarCategoria";
 import EliminarCategoria from "../components/EliminarCategoria";
 import CategoryArticles from "../components/CategoryArticles";
+import NuevoArticulo from "../components/NuevoArticulo";
+import EditarArticulo from "../components/EditarArticulo";
+import EliminarArticulo from "../components/EliminarArticulo";
+import EditArticleCategory from "../components/EditArticleCategory";
 
 const Router = createBrowserRouter([
     {
@@ -55,6 +59,22 @@ const Router = createBrowserRouter([
             {
                 path: "seccion/:categoriaNombre",
                 element: <CategoryArticles />,
+            },
+            {
+                path: "articles/new",
+                element: <NuevoArticulo />,
+            },
+            {
+                path: "articles/edit/:articleId",
+                element: <EditarArticulo />,
+            },
+            {
+                path: "articles/delete/:articleId",
+                element: <EliminarArticulo />,
+            },
+            {
+                path: "articles/:articleId/edit-categories",
+                element: <EditArticleCategory />,
             },
         ],
     },

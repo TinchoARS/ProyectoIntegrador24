@@ -7,10 +7,10 @@ function SubHeader({ isVisible, onMouseEnter, onMouseLeave }) {
   return (
     isVisible && (
       <div 
-        className="subHeader bg-light p-3 position-absolute w-100" 
+        className="subHeader  p-3 position-absolute w-100" 
         onMouseEnter={onMouseEnter} 
         onMouseLeave={onMouseLeave}
-        style={{ top: '50px', zIndex: 999 }}
+        style={{ top: '50px', zIndex: 999, backgroundColor: '#3a415a' }}
       >
         <CategoriesList />
       </div>
