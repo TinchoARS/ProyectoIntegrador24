@@ -1,7 +1,7 @@
 /* SubHeader.css */
 .subHeader {
-  background-color: #cbdad5;
-  border: #89a7b1;
+  background-color: #3a415a;
+  border: #3a415a;
 }
 
 .subHeader ul {
@@ -15,23 +15,23 @@
 }
 
 .subHeader li {
-  border: #d7c8b6 2px solid;
+  border: #3a415a 2px solid;
   border-radius: 4px;
   text-align: center;
   font-size: 10px;
 }
 
 .add-category {
-  background-color: #f4a261; /* Puedes elegir el color que prefieras */
-  border: #d7c8b6 2px solid;
+  background-color: #3a415a; /* Puedes elegir el color que prefieras */
+  border: #3a415a 2px solid;
   border-radius: 4px;
   padding: 10px 15px;
   font-size: 10px;
-  color: white;
+  color: #3a415a;
   text-decoration: none;
   transition: background-color 0.3s;
 }
 
 .add-category:hover {
-  background-color: #e76f51; /* Cambia el color en hover si lo deseas */
+  background-color: #3a415a; /* Cambia el color en hover si lo deseas */
 }
