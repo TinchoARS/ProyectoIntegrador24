@@ -8,7 +8,7 @@ import logo from '../assets/icons8.png';
 function Header({ onMouseEnter, onMouseLeave }) { 
   return (
     <Navbar expand="lg" className="fixed-top" data-bs-theme="dark" style={{ backgroundColor: '#34344e' }}>
-      <Navbar.Brand href="#Home " style={{ fontSize: '34px', fontFamily: "Helvetica" }}>
+      <Navbar.Brand href="/" style={{ fontSize: '34px', fontFamily: "Helvetica" }}>
         <img
           src={logo}
           alt="Logo"
