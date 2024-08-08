@@ -54,3 +54,17 @@ export const updateProfile = async (token, profileData, userId) => {
 
   return await response.json();
 };
+export const getUserStates = async (token) => {
+  const response = await fetch(`${API_URL}/users/user-states/`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Token ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch user states');
+  }
+
+  return await response.json();
+};
