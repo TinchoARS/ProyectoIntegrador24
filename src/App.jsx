@@ -12,6 +12,10 @@ import EditarCategoria from "./components/EditarCategoria";
 import EliminarCategoria from "./components/EliminarCategoria";
 import Reactions from "./components/Reactions";
 import CategoryArticles from "./components/CategoryArticles";
+import NuevoArticulo from "./components/NuevoArticulo";
+import EditarArticulo from "./components/EditarArticulo";
+import EliminarArticulo from "./components/EliminarArticulo";
+
 const App = () => {
     return (
         <Router>
@@ -34,6 +38,10 @@ const App = () => {
                     <Route path="/categories/edit" element={<EditarCategoria />} />
                     <Route path="/categories/delete" element={<EliminarCategoria />} />
                     <Route path="/seccion/:categoriaNombre" element={<CategoryArticles />} />
+                    <Route path="/articles/new/" element={<NuevoArticulo />} />
+                    <Route path="/articles/edit/:articleId" element={<EditarArticulo />} />
+                    <Route path="/articles/delete/:articleId" element={<EliminarArticulo />} />
+                    
                 </Routes>
             </AuthProvider>
         </Router>
