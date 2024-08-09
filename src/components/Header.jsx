@@ -2,6 +2,7 @@ import '../assets/Header.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
+import { Breadcrumb } from 'react-bootstrap';
 import menuIcon from '../assets/menu-icon.svg';
 import logo from '../assets/icons8.png';
 
@@ -28,6 +29,9 @@ function Header({ onMouseEnter, onMouseLeave }) {
           <img src={menuIcon} alt="Menu Icon" width="30" height="30" />
         </div>
       </Nav>
+      <Breadcrumb style={{paddingRight: '20px'}}>
+      <Breadcrumb.Item href="/login">Login</Breadcrumb.Item>
+    </Breadcrumb>
     </Navbar>
   );
 
