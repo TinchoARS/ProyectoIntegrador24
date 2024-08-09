@@ -31,6 +31,12 @@ export default function EditarArticulo() {
     event.preventDefault();
     setSubmitting(true);
 
+    if (!token) {
+      alert("Debes estar autenticado para guardar el artículo.");
+      setSubmitting(false);
+      return;
+    }
+
     fetch(`https://sandbox.academiadevelopers.com/infosphere/articles/${articleId}/`, {
       method: "PUT",
       headers: {
@@ -46,7 +52,7 @@ export default function EditarArticulo() {
         if (!response.ok) {
           throw new Error("No se pudo actualizar el artículo");
         }
-        navigate("/articles");
+        navigate("/");
       })
       .catch((error) => console.error("Error al actualizar el artículo", error))
       .finally(() => setSubmitting(false));
@@ -73,15 +79,20 @@ export default function EditarArticulo() {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" disabled={submitting}>
+        <button
+          type="submit"
+          disabled={submitting || !token}
+        >
           Guardar Artículo
         </button>
       </form>
 
-      {/* Botón para redirigir a la edición de categorías */}
-      <button onClick={() => navigate(`/articles/${articleId}/edit-categories`)}>
-        Editar categoría asociada
-      </button>
+      {/* Mostrar botón solo si el usuario está autenticado */}
+      {token && (
+        <button onClick={() => navigate(`/articles/${articleId}/edit-categories`)}>
+          Editar categoría asociada
+        </button>
+      )}
     </div>
   );
 }

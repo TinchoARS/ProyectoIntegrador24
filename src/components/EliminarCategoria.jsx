@@ -1,47 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import useFetch from '../hooks/useFetch';
+
 export default function EliminarCategoria() {
+  const { token } = useAuth();
+  const navigate = useNavigate();
+  
+  // Fetch categories
   const [categories, isLoading, isError] = useFetch(
-    'https://sandbox.academiadevelopers.com/infosphere/categories/?page=2'
+    'https://sandbox.academiadevelopers.com/infosphere/categories/?page=3'
   );
   const [selectedCategoryId, setSelectedCategoryId] = useState('');
   const [deleting, setDeleting] = useState(false);
 
-  const { token } = useAuth();
-  const navigate = useNavigate();
-
-
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (selectedCategoryId && !deleting) {
       setDeleting(true);
-      fetch(`https://sandbox.academiadevelopers.com/infosphere/categories/${selectedCategoryId}/`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Token ${token}`,
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Error borrando categoria');
-          }
-          alert('Categoría eliminada con éxito');
-          //setCategories(categories.results.filter((cat) => cat.id !== selectedCategoryId));
-          setSelectedCategoryId('');
-          navigate('/');
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        })
-        .finally(() => {
-          setDeleting(false);
+      try {
+        const response = await fetch(`https://sandbox.academiadevelopers.com/infosphere/categories/${selectedCategoryId}/`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Token ${token}`,
+          },
         });
+        
+        if (!response.ok) {
+          throw new Error('Error al eliminar la categoría');
+        }
+
+        alert('Categoría eliminada con éxito');
+        setSelectedCategoryId('');
+        navigate('/');
+      } catch (error) {
+        console.error('Error:', error);
+        alert(`Error: ${error.message}`);
+      } finally {
+        setDeleting(false);
+      }
     }
   };
 
+  if (!token) return <p>No estás autenticado. Redirigiendo a login...</p>;
   if (isLoading) return <p>Cargando...</p>;
   if (isError) return <p>Error al cargar categorías</p>;
+
   return (
     <div>
       <h1>Eliminar Categoría</h1>
