@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import commentService from '../services/commentService';
+import useAuth from '../hooks/useAuth'; // Asegúrate de tener el hook useAuth
 
 function AddComment({ articleId, onCommentAdded }) {
   const [content, setContent] = useState('');
   const [error, setError] = useState(null);
+  const { token } = useAuth(); // Obtén el token de autenticación desde el contexto
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
 
     if (!token) {
       setError('Debes iniciar sesión para agregar un comentario.');
@@ -22,6 +23,10 @@ function AddComment({ articleId, onCommentAdded }) {
       setError(error.message);
     }
   };
+
+  if (!token) {
+    return <p>Debes iniciar sesión para agregar un comentario.</p>;
+  }
 
   return (
     <div>

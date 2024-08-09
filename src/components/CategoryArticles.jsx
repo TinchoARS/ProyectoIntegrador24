@@ -6,6 +6,7 @@ import Comments from './Comments';
 import Header from './Header';
 import SubHeader from './SubHeader';
 import '../assets/CategoryArticles.css';
+import useAuth from '../hooks/useAuth';
 
 function CategoryArticles() {
   const { categoriaNombre } = useParams();
@@ -14,6 +15,7 @@ function CategoryArticles() {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(null);
   const [isSubheaderVisible, setSubheaderVisible] = useState(false);
+  const { token } = useAuth(); // Obtener el token para verificar autenticación
 
   const handleMouseEnter = () => setSubheaderVisible(true);
   const handleMouseLeave = () => {
@@ -76,13 +78,15 @@ function CategoryArticles() {
         />
         <Container>
           <h1 className="text-center my-4 color3">Artículos de la categoría {categoriaNombre}</h1>
-          <ul className="list-unstyled d-flex flex-wrap justify-content-center gap-3">
-            <li className="add-category bg-warning text-center rounded p-2">
-              <Link to={`/articles/new`}>
-                Agregar Articulo
-              </Link>
-            </li>
-          </ul>
+          {token && ( // Mostrar el botón "Agregar Artículo" solo si el usuario está autenticado
+            <ul className="list-unstyled d-flex flex-wrap justify-content-center gap-3">
+              <li className="add-category bg-warning text-center rounded p-2">
+                <Link to={`/articles/new`}>
+                  Agregar Artículo
+                </Link>
+              </li>
+            </ul>
+          )}
           <Row className="article-list">
             {articles.length > 0 ? (
               articles.map(article => (
@@ -99,14 +103,16 @@ function CategoryArticles() {
                     <Link to={`/articles/${article.id}`}>
                       <h5 className="color4">{article.title}</h5>
                     </Link>
-                    <div>
-                      <Link to={`/articles/edit/${article.id}`} className="btn btn-primary mx-1">
-                        Editar
-                      </Link>
-                      <Link to={`/articles/delete/${article.id}`} className="btn btn-danger mx-1">
-                        Eliminar
-                      </Link>
-                    </div>
+                    {token && ( // Mostrar los botones "Editar" y "Eliminar" solo si el usuario está autenticado
+                      <div>
+                        <Link to={`/articles/edit/${article.id}`} className="btn btn-primary mx-1">
+                          Editar
+                        </Link>
+                        <Link to={`/articles/delete/${article.id}`} className="btn btn-danger mx-1">
+                          Eliminar
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </Col>
               ))

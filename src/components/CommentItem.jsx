@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
+import useAuth from '../hooks/useAuth'; // Asegúrate de tener el hook useAuth
 import commentService from '../services/commentService';
 
 function CommentItem({ comment, onCommentUpdated, onCommentDeleted }) {
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(comment.content);
   const [error, setError] = useState(null);
+  const { token } = useAuth(); // Obtén el token de autenticación desde el contexto
 
   const handleUpdate = async () => {
-    const token = localStorage.getItem('token');
-
     if (!token) {
-      setError('You must be logged in to edit a comment.');
+      setError('Debes iniciar sesión para editar un comentario.');
       return;
     }
 
@@ -24,10 +24,8 @@ function CommentItem({ comment, onCommentUpdated, onCommentDeleted }) {
   };
 
   const handleDelete = async () => {
-    const token = localStorage.getItem('token');
-
     if (!token) {
-      setError('You must be logged in to delete a comment.');
+      setError('Debes iniciar sesión para eliminar un comentario.');
       return;
     }
 
@@ -47,15 +45,19 @@ function CommentItem({ comment, onCommentUpdated, onCommentDeleted }) {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
-          <button onClick={handleUpdate}>Save</button>
-          <button onClick={() => setIsEditing(false)}>Cancel</button>
+          <button onClick={handleUpdate}>Guardar</button>
+          <button onClick={() => setIsEditing(false)}>Cancelar</button>
         </div>
       ) : (
         <div>
           <p>{comment.content}</p>
-          <small>By {comment.author} on {new Date(comment.created_at).toLocaleString()}</small>
-          <button onClick={() => setIsEditing(true)}>Edit</button>
-          <button onClick={handleDelete}>Delete</button>
+          <small>Por {comment.author} el {new Date(comment.created_at).toLocaleString()}</small>
+          {token && (
+            <>
+              <button onClick={() => setIsEditing(true)}>Editar</button>
+              <button onClick={handleDelete}>Eliminar</button>
+            </>
+          )}
         </div>
       )}
       {error && <div className="error">{error}</div>}

@@ -11,6 +11,11 @@ export default function EditArticleCategory() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!token) {
+      navigate("/login"); // Redirige si no está autenticado
+      return;
+    }
+
     // Cargar categorías asociadas al artículo
     fetch(
       `https://sandbox.academiadevelopers.com/infosphere/articles/${articleId}/categories/`,
@@ -54,13 +59,18 @@ export default function EditArticleCategory() {
       .then((response) => response.json())
       .then((data) => setAllCategories(data.results))
       .catch((error) => console.error("Error al cargar todas las categorías", error));
-  }, [articleId, token]);
+  }, [articleId, token, navigate]);
 
   function handleCategorySelection(event) {
     setNewCategory(event.target.value);
   }
 
   function handleAddCategory() {
+    if (!token) {
+      alert("Debes iniciar sesión para agregar una categoría.");
+      return;
+    }
+
     if (newCategory) {
       fetch(
         `https://sandbox.academiadevelopers.com/infosphere/articles/${articleId}/categories/`,
@@ -102,9 +112,13 @@ export default function EditArticleCategory() {
         );
     }
   }
-  
+
   function handleDeleteCategory(category) {
-    // Aquí hacemos la llamada a la API para eliminar la categoría
+    if (!token) {
+      alert("Debes iniciar sesión para eliminar una categoría.");
+      return;
+    }
+
     fetch(
       `https://sandbox.academiadevelopers.com/infosphere/articles/${category.article}/categories/${category.id}/`,
       {
@@ -136,7 +150,10 @@ export default function EditArticleCategory() {
         {categories.map((category) => (
           <li key={category.id}>
             {category.categoryName}
-            <button onClick={() => handleDeleteCategory(category)}>
+            <button
+              onClick={() => handleDeleteCategory(category)}
+              disabled={!token}
+            >
               Eliminar
             </button>
           </li>
@@ -144,7 +161,11 @@ export default function EditArticleCategory() {
       </ul>
       <div>
         <h3>Agregar Nueva Categoría</h3>
-        <select value={newCategory} onChange={handleCategorySelection}>
+        <select
+          value={newCategory}
+          onChange={handleCategorySelection}
+          disabled={!token}
+        >
           <option value="">Selecciona una categoría</option>
           {allCategories.map((cat) => (
             <option key={cat.id} value={cat.id}>
@@ -152,7 +173,12 @@ export default function EditArticleCategory() {
             </option>
           ))}
         </select>
-        <button onClick={handleAddCategory}>Agregar Categoría</button>
+        <button
+          onClick={handleAddCategory}
+          disabled={!token}
+        >
+          Agregar Categoría
+        </button>
       </div>
     </div>
   );

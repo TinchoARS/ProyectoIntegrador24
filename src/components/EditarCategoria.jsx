@@ -12,11 +12,17 @@ export default function EditarCategoria() {
   const [description, setDescription] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
+  // Fetch categories
   const [categories, isLoadingCategories, isErrorCategories] = useFetch(
-    'https://sandbox.academiadevelopers.com/infosphere/categories/?page=2'
+    'https://sandbox.academiadevelopers.com/infosphere/categories/?page=3'
   );
 
   useEffect(() => {
+    if (!token) {
+      navigate('/login'); // Redirige a login si no hay token
+      return;
+    }
+
     const fetchCategory = async () => {
       if (selectedCategoryId) {
         const response = await fetch(`https://sandbox.academiadevelopers.com/infosphere/categories/${selectedCategoryId}/`, {
@@ -34,7 +40,7 @@ export default function EditarCategoria() {
       }
     };
     fetchCategory();
-  }, [selectedCategoryId, token]);
+  }, [selectedCategoryId, token, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,6 +71,7 @@ export default function EditarCategoria() {
     }
   };
 
+  if (!token) return <p>No estás autenticado. Redirigiendo a login...</p>;
   if (isLoadingCategories) return <p>Cargando categorías...</p>;
   if (isErrorCategories) return <p>Error al cargar categorías</p>;
 

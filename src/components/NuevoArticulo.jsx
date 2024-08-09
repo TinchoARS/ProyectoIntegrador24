@@ -14,9 +14,6 @@ export default function ArticleForm() {
 
     useEffect(() => {
         fetch(`https://sandbox.academiadevelopers.com/infosphere/categories/`, {
-            headers: {
-                Authorization: `Token ${token}`,
-            },
         })
             .then((response) => {
                 if (!response.ok) {
@@ -112,6 +109,7 @@ export default function ArticleForm() {
 
     return (
         <form className={`box m-4 p-4 has-background-dark`} onSubmit={handleSubmit}>
+                  <h2>Agregar nuevo articulo</h2>
             <div className="field">
                 <label className="label">Título</label>
                 <div className="control">
