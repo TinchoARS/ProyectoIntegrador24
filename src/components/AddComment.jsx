@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import commentService from '../services/commentService';
 
-
-
-function AddComment({ articleId = 80, onCommentAdded }) { // articleId = 80 cambiar cuando se agregue componente de articulos
+function AddComment({ articleId, onCommentAdded }) {
   const [content, setContent] = useState('');
   const [error, setError] = useState(null);
 
@@ -12,7 +10,7 @@ function AddComment({ articleId = 80, onCommentAdded }) { // articleId = 80 camb
     const token = localStorage.getItem('token');
 
     if (!token) {
-      setError('You must be logged in to add a comment.');
+      setError('Debes iniciar sesión para agregar un comentario.');
       return;
     }
 
@@ -31,10 +29,10 @@ function AddComment({ articleId = 80, onCommentAdded }) { // articleId = 80 camb
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="Add your comment"
+          placeholder="Agrega tu comentario"
           required
         />
-        <button type="submit">Add Comment</button>
+        <button type="submit">Agregar Comentario</button>
       </form>
       {error && <div className="error">{error}</div>}
     </div>

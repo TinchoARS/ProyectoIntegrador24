@@ -11,6 +11,7 @@ import Articles from "./components/Articles";
 import EditarCategoria from "./components/EditarCategoria";
 import EliminarCategoria from "./components/EliminarCategoria";
 import Reactions from "./components/Reactions";
+import ArticleDetails from "./components/ArticleDetails";
 import CategoryArticles from "./components/CategoryArticles";
 import NuevoArticulo from "./components/NuevoArticulo";
 import EditarArticulo from "./components/EditarArticulo";
@@ -34,6 +35,7 @@ const App = () => {
                     />
                     <Route path="/categories/new" element={<NuevaCategoria />} />
                     <Route path="articles" element={<Articles />} />
+                    <Route path="/articles/:id" element={<ArticleDetails />} />
                     <Route path="reactions" element={<Reactions />} />
                     <Route path="*" element={<ErrorPage />} />
                     <Route path="/categories/edit" element={<EditarCategoria />} />

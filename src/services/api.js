@@ -7,7 +7,7 @@ const API_URL = 'https://sandbox.academiadevelopers.com/api-auth/';
 const getNews = async () => {
   try {
     const response = await fetch(API_URL, {
-    method: 'GET,
+    method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Navbar, Nav, Container, Row, Col, Button, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import useFetch from '../hooks/useFetch';
 import Comments from './Comments';
 import Header from './Header';
@@ -96,7 +96,9 @@ function CategoryArticles() {
                         fluid
                       />
                     )}
-                    <h5 className="color4">{article.title}</h5>
+                    <Link to={`/articles/${article.id}`}>
+                      <h5 className="color4">{article.title}</h5>
+                    </Link>
                     <div>
                       <Link to={`/articles/edit/${article.id}`} className="btn btn-primary mx-1">
                         Editar
@@ -105,7 +107,6 @@ function CategoryArticles() {
                         Eliminar
                       </Link>
                     </div>
-                    <Comments articleId={article.id} />
                   </div>
                 </Col>
               ))
