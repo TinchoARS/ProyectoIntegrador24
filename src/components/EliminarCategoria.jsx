@@ -41,36 +41,61 @@ export default function EliminarCategoria() {
     }
   };
 
+  const handleCancel = () => {
+    navigate('/');
+  };
+
   if (!token) return <p>No estás autenticado. Redirigiendo a login...</p>;
   if (isLoading) return <p>Cargando...</p>;
   if (isError) return <p>Error al cargar categorías</p>;
 
   return (
-    <div>
-      <h1>Eliminar Categoría</h1>
-      <form>
-        <label>
-          Selecciona una categoría para eliminar:
-          <select
-            value={selectedCategoryId}
-            onChange={(e) => setSelectedCategoryId(e.target.value)}
-          >
-            <option value="" disabled>Selecciona una categoría</option>
-            {categories.results.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button
-          type="button"
-          onClick={handleDelete}
-          disabled={deleting || !selectedCategoryId}
-        >
-          Eliminar Categoría
-        </button>
-      </form>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4" style={{ color: '#34344e' }}>Eliminar Categoría</h1>
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <form className="p-4 shadow-sm rounded" style={{ backgroundColor: '#cbdad5' }}>
+            <div className="mb-3">
+              <label htmlFor="category" className="form-label" style={{ color: '#3a415a' }}>
+                Selecciona una categoría para eliminar:
+              </label>
+              <select
+                id="category"
+                className="form-select"
+                value={selectedCategoryId}
+                onChange={(e) => setSelectedCategoryId(e.target.value)}
+                style={{ backgroundColor: '#89a7b1', borderColor: '#566981', color: '#34344e' }}
+              >
+                <option value="" disabled>Selecciona una categoría</option>
+                {categories.results.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="text-center d-flex justify-content-between">
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={handleDelete}
+                disabled={deleting || !selectedCategoryId}
+                style={{ backgroundColor: '#566981', borderColor: '#3a415a' }}
+              >
+                Eliminar Categoría
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleCancel}
+                style={{ backgroundColor: '#566981', borderColor: '#3a415a' }}
+              >
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

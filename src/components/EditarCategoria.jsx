@@ -71,52 +71,84 @@ export default function EditarCategoria() {
     }
   };
 
+  const handleCancel = () => {
+    navigate('/');
+  };
+
   if (!token) return <p>No estás autenticado. Redirigiendo a login...</p>;
   if (isLoadingCategories) return <p>Cargando categorías...</p>;
   if (isErrorCategories) return <p>Error al cargar categorías</p>;
 
   return (
-    <div>
-      <h1>Editar Categoría</h1>
-      <label>
-        Seleccionar Categoría:
-        <select
-          value={selectedCategoryId}
-          onChange={(e) => setSelectedCategoryId(e.target.value)}
-        >
-          <option value="">Seleccionar una categoría</option>
-          {categories.results.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </label>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4" style={{ color: '#34344e' }}>Editar Categoría</h1>
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="mb-3">
+            <label htmlFor="category" className="form-label" style={{ color: '#3a415a' }}>Seleccionar Categoría:</label>
+            <select
+              id="category"
+              className="form-select"
+              value={selectedCategoryId}
+              onChange={(e) => setSelectedCategoryId(e.target.value)}
+              style={{ backgroundColor: '#89a7b1', borderColor: '#566981', color: '#34344e' }}
+            >
+              <option value="">Seleccionar una categoría</option>
+              {categories.results.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-      {selectedCategoryId && (
-        <form onSubmit={handleSubmit}>
-          <label>
-            Nombre:
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Descripción:
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-          </label>
-          <button type="submit" disabled={submitting}>
-            Actualizar Categoría
-          </button>
-        </form>
-      )}
+          {selectedCategoryId && (
+            <form onSubmit={handleSubmit} className="p-4 shadow-sm rounded" style={{ backgroundColor: '#cbdad5' }}>
+              <div className="mb-3">
+                <label htmlFor="name" className="form-label" style={{ color: '#3a415a' }}>Nombre:</label>
+                <input
+                  type="text"
+                  id="name"
+                  className="form-control"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  style={{ backgroundColor: '#89a7b1', borderColor: '#566981', color: '#34344e' }}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="description" className="form-label" style={{ color: '#3a415a' }}>Descripción:</label>
+                <textarea
+                  id="description"
+                  className="form-control"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                  style={{ backgroundColor: '#89a7b1', borderColor: '#566981', color: '#34344e' }}
+                />
+              </div>
+              <div className="text-center d-flex justify-content-between">
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={submitting}
+                  style={{ backgroundColor: '#3a415a', borderColor: '#34344e' }}
+                >
+                  Actualizar Categoría
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={handleCancel}
+                  style={{ backgroundColor: '#566981', borderColor: '#3a415a' }}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
