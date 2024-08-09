@@ -6,6 +6,7 @@ import Layout from "./Layout";
 import ProtectedRoute from "./ProtectedRoute";
 import NuevaCategoria from "../components/NuevaCategoria";
 import Articles from "../components/Articles";
+import ArticleDetails from "../components/ArticleDetails";
 import EditarCategoria from "../components/EditarCategoria";
 import EliminarCategoria from "../components/EliminarCategoria";
 import CategoryArticles from "../components/CategoryArticles";
@@ -76,6 +77,10 @@ const Router = createBrowserRouter([
                 path: "articles/:articleId/edit-categories",
                 element: <EditArticleCategory />,
             },
+            {
+                path: "articles/:articleId",
+                element: <ArticleDetails />,
+            }
         ],
     },
     {

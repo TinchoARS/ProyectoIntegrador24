@@ -10,7 +10,7 @@ function Comments({ articleId }) {
 
   const fetchComments = async () => {
     try {
-      const data = await commentService.getComments();
+      const data = await commentService.getCommentsByArticleId(articleId); // obtener comentarios por articulo
       setComments(data.results);
     } catch (error) {
       setError(error.message);
@@ -21,22 +21,22 @@ function Comments({ articleId }) {
 
   useEffect(() => {
     fetchComments();
-  }, []);
+  }, [articleId]); // actualizar los comentarios cuando cambie el id del articulo
 
   const handleCommentAdded = () => {
-    fetchComments();
+    fetchComments(); // refrescar los comentarios despues de añadir uno nuevo
   };
 
   const handleCommentUpdated = () => {
-    fetchComments();
+    fetchComments(); // refrescar los comentarios dspues de actualizar uno
   };
 
   const handleCommentDeleted = () => {
-    fetchComments();
+    fetchComments(); // refrescar los comentarios despues de eliminar uno
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Cargando comentarios...</div>;
   }
 
   if (error) {
@@ -45,7 +45,7 @@ function Comments({ articleId }) {
 
   return (
     <div>
-      <h2>Comments</h2>
+      <h2>Comentarios</h2>
       <AddComment articleId={articleId} onCommentAdded={handleCommentAdded} />
       <ul>
         {comments.map((comment) => (
