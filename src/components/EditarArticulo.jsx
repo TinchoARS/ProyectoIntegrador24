@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { Form, Button, Spinner } from "react-bootstrap";
 
 export default function EditarArticulo() {
   const { articleId } = useParams();
@@ -59,39 +60,42 @@ export default function EditarArticulo() {
   }
 
   return (
-    <div>
-      <h2>Editar Artículo</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Título</label>
-          <input
+    <div className="container mt-4">
+      <h2 className="mb-4" style={{ color: "#3a415a" }}>Editar Artículo</h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formTitle">
+          <Form.Label style={{ color: "#566981" }}>Título</Form.Label>
+          <Form.Control
             type="text"
             name="title"
             value={articleData.title}
             onChange={handleInputChange}
+            style={{ backgroundColor: "#cbdad5", color: "#3a415a" }}
           />
-        </div>
-        <div>
-          <label>Contenido</label>
-          <textarea
+        </Form.Group>
+        <Form.Group controlId="formContent" className="mt-3">
+          <Form.Label style={{ color: "#566981" }}>Contenido</Form.Label>
+          <Form.Control
+            as="textarea"
             name="content"
             value={articleData.content}
             onChange={handleInputChange}
+            style={{ backgroundColor: "#cbdad5", color: "#3a415a" }}
           />
+        </Form.Group>
+        <div className="mt-4">
+          <Button variant="primary" type="submit" disabled={submitting || !token} style={{ backgroundColor: "#566981", borderColor: "#566981" }}>
+            {submitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Guardar Artículo"}
+          </Button>
+          <Button variant="secondary" onClick={() => navigate(-1)} className="ms-2" style={{ backgroundColor: "#89a7b1", borderColor: "#89a7b1" }}>
+            Cancelar
+          </Button>
         </div>
-        <button
-          type="submit"
-          disabled={submitting || !token}
-        >
-          Guardar Artículo
-        </button>
-      </form>
-
-      {/* Mostrar botón solo si el usuario está autenticado */}
+      </Form>
       {token && (
-        <button onClick={() => navigate(`/articles/${articleId}/edit-categories`)}>
+        <Button variant="link" onClick={() => navigate(`/articles/${articleId}/edit-categories`)} className="mt-3" style={{ color: "#34344e" }}>
           Editar categoría asociada
-        </button>
+        </Button>
       )}
     </div>
   );
