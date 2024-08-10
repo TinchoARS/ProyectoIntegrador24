@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { getProfileData, getUserStates } from "../services/authService";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import defaultProfileImage from "../assets/default-profile.jpg";
 
 // Paleta de colores
@@ -67,6 +68,12 @@ const Profile = () => {
 
     const handleSaveClick = () => {
         setIsEditing(false);
+        Swal.fire({
+            title: '¡Éxito!',
+            text: 'Perfil guardado correctamente.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+        });
     };
 
     const handleChange = (e) => {
@@ -95,8 +102,21 @@ const Profile = () => {
     };
 
     const handleLogoutClick = () => {
-        logout();
-        navigate("/login");
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: '¿Desea cerrar sesión?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, cerrar sesión',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                logout();
+                navigate("/login");
+            }
+        });
     };
 
     const handleContinueClick = () => {

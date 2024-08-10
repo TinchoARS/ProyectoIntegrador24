@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { Form, Button, Spinner } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 export default function EditarArticulo() {
   const { articleId } = useParams();
@@ -30,33 +31,55 @@ export default function EditarArticulo() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setSubmitting(true);
 
-    if (!token) {
-      alert("Debes estar autenticado para guardar el artículo.");
-      setSubmitting(false);
-      return;
-    }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Quieres guardar los cambios en el artículo?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setSubmitting(true);
 
-    fetch(`https://sandbox.academiadevelopers.com/infosphere/articles/${articleId}/`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token}`,
-      },
-      body: JSON.stringify({
-        title: articleData.title,
-        content: articleData.content,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("No se pudo actualizar el artículo");
+        if (!token) {
+          alert("Debes estar autenticado para guardar el artículo.");
+          setSubmitting(false);
+          return;
         }
-        navigate("/");
-      })
-      .catch((error) => console.error("Error al actualizar el artículo", error))
-      .finally(() => setSubmitting(false));
+
+        fetch(`https://sandbox.academiadevelopers.com/infosphere/articles/${articleId}/`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+          body: JSON.stringify({
+            title: articleData.title,
+            content: articleData.content,
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("No se pudo actualizar el artículo");
+            }
+            Swal.fire({
+              title: '¡Éxito!',
+              text: 'El artículo ha sido actualizado.',
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#3085d6',
+            }).then(() => {
+              navigate(`/articles/${articleId}/`);
+            });
+          })
+          .catch((error) => console.error("Error al actualizar el artículo", error))
+          .finally(() => setSubmitting(false));
+      }
+    });
   }
 
   return (

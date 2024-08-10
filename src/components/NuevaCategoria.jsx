@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // Importa SweetAlert
 
 function NuevaCategoria() {
   const [name, setName] = useState('');
@@ -30,15 +31,35 @@ function NuevaCategoria() {
         });
 
         if (response.ok) {
-          alert('Categoría agregada con éxito');
-          setName('');
-          setDescription('');
-          navigate('/');
+          // Muestra una alerta de éxito con SweetAlert
+          Swal.fire({
+            title: '¡Éxito!',
+            text: 'Categoría agregada con éxito',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          }).then(() => {
+            setName('');
+            setDescription('');
+            navigate('/');
+          });
         } else {
-          alert('Error al agregar categoría');
+          // Muestra una alerta de error con SweetAlert
+          Swal.fire({
+            title: 'Error',
+            text: 'Hubo un problema al agregar la categoría',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
         }
       } catch (error) {
         console.error('Error:', error);
+        // Muestra una alerta de error con SweetAlert
+        Swal.fire({
+          title: 'Error',
+          text: 'Ocurrió un error inesperado',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        });
       } finally {
         setSubmitting(false);
       }
