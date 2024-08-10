@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image, Spinner } from 'react-bootstrap';
 import useFetch from '../hooks/useFetch';
-import Comments from './Comments';
 import Header from './Header';
 import SubHeader from './SubHeader';
 import '../assets/CategoryArticles.css';
 import useAuth from '../hooks/useAuth';
+import defaultImage from '../assets/default-image.jpg';
 
 function CategoryArticles() {
   const { categoriaNombre } = useParams();
@@ -59,9 +59,23 @@ function CategoryArticles() {
     }
   }, [categories, categoriaNombre]);
 
-  if (isLoadingCategories) return <p>Cargando categorías...</p>;
+  if (isLoadingCategories) return (
+    <div className="d-flex justify-content-center align-items-center vh-100">
+    <div className="text-center">
+      <Spinner animation="border" role="status" />
+    <p>Cargando categorías...</p>
+    </div>
+  </div>
+  )
   if (isErrorCategories) return <p>Error al cargar las categorías</p>;
-  if (isLoading) return <p>Cargando artículos...</p>;
+  if (isLoading) return (
+    <div className="d-flex justify-content-center align-items-center vh-100">
+    <div className="text-center">
+      <Spinner animation="border" role="status" />
+      <p>Cargando artículos...</p>
+      </div>
+    </div>
+  );
   if (isError) return <p>{isError}</p>;
 
   return (
@@ -92,14 +106,12 @@ function CategoryArticles() {
               articles.map(article => (
                 <Col key={article.id} md={6} lg={4} className="mb-4">
                   <div className="article-card bg-light p-3 border rounded">
-                    {article.image && (
-                      <Image
-                        src={article.image}
-                        alt={article.title}
-                        className="article-image mb-2"
-                        fluid
-                      />
-                    )}
+                    <Image
+                      src={article.image || defaultImage}
+                      alt={article.title}
+                      className="article-image mb-2"
+                      fluid
+                    />
                     <Link to={`/articles/${article.id}`}>
                       <h5 className="color4">{article.title}</h5>
                     </Link>

@@ -38,7 +38,7 @@ function Comments({ articleId }) {
 
   if (loading) {
     return (
-      <Container>
+      <Container fluid className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
         <Spinner animation="border" role="status" style={{ color: '#3a415a' }}>
           <span className="visually-hidden">Cargando comentarios...</span>
         </Spinner>

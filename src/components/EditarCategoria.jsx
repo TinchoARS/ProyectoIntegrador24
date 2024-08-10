@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import useFetch from '../hooks/useFetch';
+import { Spinner } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
 export default function EditarCategoria() {
   const { token } = useAuth();
@@ -46,38 +48,95 @@ export default function EditarCategoria() {
     e.preventDefault();
     if (submitting || !selectedCategoryId) return;
 
-    setSubmitting(true);
-    try {
-      const response = await fetch(`https://sandbox.academiadevelopers.com/infosphere/categories/${selectedCategoryId}/`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${token}`,
-        },
-        body: JSON.stringify({ name, description }),
-      });
+    const result = await Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas guardar los cambios realizados en la categoría?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3a415a',
+      cancelButtonColor: '#566981',
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'Cancelar',
+    });
 
-      if (response.ok) {
-        alert('Categoría actualizada con éxito');
-        navigate('/');
-      } else {
-        const errorText = await response.text();
-        alert(`Error al actualizar la categoría: ${errorText}`);
+    if (result.isConfirmed) {
+      setSubmitting(true);
+      try {
+        const response = await fetch(`https://sandbox.academiadevelopers.com/infosphere/categories/${selectedCategoryId}/`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
+          },
+          body: JSON.stringify({ name, description }),
+        });
+
+        if (response.ok) {
+          Swal.fire({
+            icon: 'success',
+            title: '¡Categoría actualizada!',
+            text: 'La categoría se ha actualizado con éxito.',
+            confirmButtonColor: '#3a415a',
+          }).then(() => {
+            navigate('/');
+          });
+        } else {
+          const errorText = await response.text();
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: `Error al actualizar la categoría: ${errorText}`,
+            confirmButtonColor: '#3a415a',
+          });
+        }
+      } catch (error) {
+        console.error('Error al actualizar la categoría:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Hubo un error al intentar actualizar la categoría.',
+          confirmButtonColor: '#3a415a',
+        });
+      } finally {
+        setSubmitting(false);
       }
-    } catch (error) {
-      console.error('Error al actualizar la categoría:', error);
-    } finally {
-      setSubmitting(false);
     }
   };
 
   const handleCancel = () => {
-    navigate('/');
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Los cambios no guardados se perderán.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3a415a',
+      cancelButtonColor: '#566981',
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'No, continuar editando',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/');
+      }
+    });
   };
 
   if (!token) return <p>No estás autenticado. Redirigiendo a login...</p>;
-  if (isLoadingCategories) return <p>Cargando categorías...</p>;
-  if (isErrorCategories) return <p>Error al cargar categorías</p>;
+  if (isLoadingCategories) return (
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="text-center">
+        <Spinner animation="border" role="status" />
+        <p>Cargando categorías...</p>
+      </div>
+    </div>
+  );
+  if (isErrorCategories) return (
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="text-center">
+        <Spinner animation="border" role="status" />
+        <p>Error al cargar categorías...</p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="container mt-5">

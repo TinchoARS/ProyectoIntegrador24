@@ -1,5 +1,6 @@
 // src/services/commentService.js
 const API_URL = 'https://sandbox.academiadevelopers.com/infosphere/comments/';
+const USERS_API_URL = 'https://sandbox.academiadevelopers.com/infosphere/users/';
 
 const getComments = async (page = 3, pageSize = 10) => {
   const response = await fetch(`${API_URL}?page=${page}&page_size=${pageSize}`);
@@ -67,10 +68,26 @@ const deleteComment = async (token, commentId) => {
   }
 };
 
+const getUserProfile = async (userId, token) => {
+  const response = await fetch(`https://sandbox.academiadevelopers.com/users/profiles/${userId}/`, {
+    headers: {
+      'Authorization': `Token ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch user profile');
+  }
+
+  return response.json();
+};
+
+
 export default {
   getComments,
   getCommentsByArticleId,
   addComment,
   updateComment,
   deleteComment,
+  getUserProfile,
 };

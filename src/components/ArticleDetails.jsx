@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Comments from './Comments';
-import { Container, Row, Col, Image, Button } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Spinner } from 'react-bootstrap';
 import  backArrow  from '../assets/back.png';
 
 function ArticleDetails() {
-  const { id } = useParams(); // Obtiene el ID del artículo desde la URL
+  const { id } = useParams();
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(null);
@@ -30,7 +30,14 @@ function ArticleDetails() {
       });
   }, [id]);
 
-  if (isLoading) return <p>Cargando artículo...</p>;
+  if (isLoading) return (
+    <div className="d-flex justify-content-center align-items-center vh-100">
+    <div className="text-center">
+      <Spinner animation="border" role="status" />
+      <p>Cargando artículo...</p>
+    </div>
+  </div>
+  );
   if (isError) return <p>{isError}</p>;
 
   return (
@@ -49,7 +56,6 @@ function ArticleDetails() {
             <strong>Fecha de actualización:</strong> {new Date(article.updated_at).toLocaleDateString()}
           </p>
           {article.image && <Image src={article.image} alt={article.title} fluid className="mb-4" />}
-          <h3 className="mt-4" style={{ color: '#34344e' }}>Copete</h3>
           <p style={{ color: '#566981' }}>{article.abstract}</p>
           <h3 style={{ color: '#34344e' }}>Contenido</h3>
           <p style={{ color: '#566981' }}>{article.content}</p>

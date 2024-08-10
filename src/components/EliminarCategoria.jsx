@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import useFetch from '../hooks/useFetch';
+import Swal from 'sweetalert2'; // Importa SweetAlert
 
 export default function EliminarCategoria() {
   const { token } = useAuth();
@@ -24,17 +25,30 @@ export default function EliminarCategoria() {
             'Authorization': `Token ${token}`,
           },
         });
-        
+
         if (!response.ok) {
           throw new Error('Error al eliminar la categoría');
         }
 
-        alert('Categoría eliminada con éxito');
-        setSelectedCategoryId('');
-        navigate('/');
+        // Mostrar confirmación con SweetAlert
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'Categoría eliminada con éxito',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        }).then(() => {
+          setSelectedCategoryId('');
+          navigate('/');
+        });
       } catch (error) {
         console.error('Error:', error);
-        alert(`Error: ${error.message}`);
+        // Mostrar error con SweetAlert
+        Swal.fire({
+          title: 'Error',
+          text: `Error: ${error.message}`,
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        });
       } finally {
         setDeleting(false);
       }

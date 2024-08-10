@@ -17,11 +17,14 @@ import NuevoArticulo from "./components/NuevoArticulo";
 import EditarArticulo from "./components/EditarArticulo";
 import EliminarArticulo from "./components/EliminarArticulo";
 import EditArticleCategory from "./components/EditArticleCategory";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
     return (
         <Router>
             <AuthProvider>
+                <ToastContainer autoClose={3000} />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
