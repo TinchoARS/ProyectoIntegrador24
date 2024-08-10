@@ -12,11 +12,10 @@ export default function EditArticleCategory() {
 
   useEffect(() => {
     if (!token) {
-      navigate("/login"); // Redirige si no está autenticado
+      navigate("/login");
       return;
     }
 
-    // Cargar categorías asociadas al artículo
     fetch(
       `https://sandbox.academiadevelopers.com/infosphere/articles/${articleId}/categories/`,
       {
@@ -50,7 +49,6 @@ export default function EditArticleCategory() {
       })
       .catch((error) => console.error("Error al obtener categorías", error));
 
-    // Cargar todas las categorías disponibles
     fetch(`https://sandbox.academiadevelopers.com/infosphere/categories/`, {
       headers: {
         Authorization: `Token ${token}`,
@@ -93,11 +91,10 @@ export default function EditArticleCategory() {
           return response.json();
         })
         .then(() => {
-          // Actualizar la lista de categorías después de agregar
           setCategories((prevCategories) => [
             ...prevCategories,
             {
-              id: Date.now(), // Generar un ID temporal hasta que se confirme la creación
+              id: Date.now(),
               article: articleId,
               categoryId: newCategory,
               categoryName: allCategories.find(
@@ -133,7 +130,6 @@ export default function EditArticleCategory() {
         if (!response.ok) {
           throw new Error("No se pudo eliminar la categoría");
         }
-        // Actualizar la lista de categorías después de eliminar
         setCategories((prevCategories) =>
           prevCategories.filter((cat) => cat.id !== category.id)
         );
@@ -143,14 +139,30 @@ export default function EditArticleCategory() {
       );
   }
 
+  function handleAccept() {
+    // Aquí puedes realizar cualquier acción adicional antes de navegar
+    navigate(-1); // Volver a la pestaña anterior
+  }
+
   return (
-    <div>
-      <h2>Editar Categorías Asociadas</h2>
-      <ul>
+    <div
+      className="container mt-4"
+      style={{ backgroundColor: "#cbdad5", padding: "20px", borderRadius: "8px" }}
+    >
+      <h2 className="mb-4" style={{ color: "#3a415a" }}>
+        Editar Categorías Asociadas
+      </h2>
+      <ul className="list-group mb-4">
         {categories.map((category) => (
-          <li key={category.id}>
+          <li
+            key={category.id}
+            className="list-group-item d-flex justify-content-between align-items-center"
+            style={{ backgroundColor: "#89a7b1", color: "#3a415a" }}
+          >
             {category.categoryName}
             <button
+              className="btn btn-danger btn-sm"
+              style={{ backgroundColor: "#34344e", color: "#ffffff" }}
               onClick={() => handleDeleteCategory(category)}
               disabled={!token}
             >
@@ -159,25 +171,47 @@ export default function EditArticleCategory() {
           </li>
         ))}
       </ul>
-      <div>
-        <h3>Agregar Nueva Categoría</h3>
-        <select
-          value={newCategory}
-          onChange={handleCategorySelection}
-          disabled={!token}
-        >
-          <option value="">Selecciona una categoría</option>
-          {allCategories.map((cat) => (
-            <option key={cat.id} value={cat.id}>
-              {cat.name}
-            </option>
-          ))}
-        </select>
+      <div className="mb-4">
+        <h3 style={{ color: "#3a415a" }}>Agregar Nueva Categoría</h3>
+        <div className="input-group mb-3">
+          <select
+            className="form-select"
+            value={newCategory}
+            onChange={handleCategorySelection}
+            disabled={!token}
+            style={{ backgroundColor: "#566981", color: "#ffffff" }}
+          >
+            <option value="">Selecciona una categoría</option>
+            {allCategories.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
+          <button
+            className="btn btn-primary"
+            onClick={handleAddCategory}
+            disabled={!token}
+            style={{ backgroundColor: "#3a415a", color: "#ffffff" }}
+          >
+            Agregar Categoría
+          </button>
+        </div>
+      </div>
+      <div className="d-flex justify-content-end">
         <button
-          onClick={handleAddCategory}
-          disabled={!token}
+          className="btn btn-secondary me-2"
+          onClick={() => navigate(-1)}
+          style={{ backgroundColor: "#34344e", color: "#ffffff" }}
         >
-          Agregar Categoría
+          Cancelar
+        </button>
+        <button
+          className="btn btn-primary"
+          onClick={handleAccept}
+          style={{ backgroundColor: "#3a415a", color: "#ffffff" }}
+        >
+          Aceptar
         </button>
       </div>
     </div>
