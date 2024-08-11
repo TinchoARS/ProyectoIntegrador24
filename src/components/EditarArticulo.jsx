@@ -10,6 +10,7 @@ export default function EditarArticulo() {
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
   const { token } = useAuth();
+  const [articleImage, setArticleImage] = useState(null);
 
   useEffect(() => {
     fetch(`https://sandbox.academiadevelopers.com/infosphere/articles/${articleId}/`, {
@@ -27,6 +28,10 @@ export default function EditarArticulo() {
       ...articleData,
       [event.target.name]: event.target.value,
     });
+  }
+
+  function handleImageChange(event) {
+    setArticleImage(event.target.files[0]);
   }
 
   function handleSubmit(event) {
@@ -51,16 +56,19 @@ export default function EditarArticulo() {
           return;
         }
 
+        const formData = new FormData();
+        formData.append("title", articleData.title);
+        formData.append("content", articleData.content);
+        if (articleImage) {
+          formData.append("image", articleImage);
+        }
+
         fetch(`https://sandbox.academiadevelopers.com/infosphere/articles/${articleId}/`, {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Token ${token}`,
           },
-          body: JSON.stringify({
-            title: articleData.title,
-            content: articleData.content,
-          }),
+          body: formData,
         })
           .then((response) => {
             if (!response.ok) {
@@ -105,7 +113,16 @@ export default function EditarArticulo() {
             onChange={handleInputChange}
             style={{ backgroundColor: "#cbdad5", color: "#3a415a" }}
           />
-        </Form.Group>
+          </Form.Group>
+           <Form.Group controlId="formImage" className="mt-3">
+                    <Form.Label style={{ color: "#566981" }}>Imagen</Form.Label>
+                    <Form.Control
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        style={{ backgroundColor: "#cbdad5", color: "#3a415a" }}
+                    />
+          </Form.Group>
         <div className="mt-4">
           <Button variant="primary" type="submit" disabled={submitting || !token} style={{ backgroundColor: "#566981", borderColor: "#566981" }}>
             {submitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Guardar Artículo"}
