@@ -53,3 +53,28 @@ ProyectoIntegrador24/ ├── public/ ├── src/ │ ├── assets/ │
 1. Clona el repositorio:
    ```bash
    git clone https://github.com/tu-usuario/ProyectoIntegrador24.git
+   Navega al directorio del proyecto:
+     cd ProyectoIntegrador24
+   Instala las dependencias:
+   npm install
+   Inicia la aplicación:
+   npm start
+
+Tecnologías Utilizadas
+React: Biblioteca de JavaScript para construir interfaces de usuario.
+Bootstrap: Framework CSS para diseño responsivo.
+React-Bootstrap: Componentes de Bootstrap para React.
+React Router: Librería para manejo de rutas en React.
+Context API: Manejo de estado global en React.
+Contribución
+Si deseas contribuir a este proyecto, por favor sigue los siguientes pasos:
+
+Haz un fork del repositorio.
+Crea una nueva rama (git checkout -b feature/nueva-funcionalidad).
+Realiza tus cambios y haz commit (git commit -am 'Agrega nueva funcionalidad').
+Sube tus cambios a tu fork (git push origin feature/nueva-funcionalidad).
+Abre un Pull Request.
+Licencia
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
+
+```
