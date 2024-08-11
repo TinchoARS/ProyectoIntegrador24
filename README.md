@@ -1,3 +1,16 @@
+# Proyecto Integrador
+
+## Descripción
+
+Este proyecto es una aplicación web que permite a los usuarios registrarse, iniciar sesión y acceder a un perfil personalizado. La aplicación también incluye un carrusel de noticias y categorías populares. Está construido utilizando React, Bootstrap y otras tecnologías modernas.
+
+## Estructura del Proyecto
+
+La estructura del proyecto es la siguiente:
+
+ProyectoIntegrador24/ ├── public/ ├── src/ │ ├── assets/ │ │ ├── Caroulsel.css │ │ └── profile.jpg │ ├── components/ │ │ ├── CarouselPage.jsx │ │ ├── Header.jsx │ │ ├── Home.jsx │ │ ├── Login.jsx │ │ ├── SubHeader.jsx │ │ └── ... │ ├── context/ │ │ └── AuthProvider.jsx │ ├── services/ │ │ └── authService.js │ ├── App.js │ ├── index.js │ └── ... ├── .gitignore ├── package.json ├── README.md └── ...
+
+
 
 ## Endpoints
 
