@@ -43,12 +43,15 @@ function CategoryArticles() {
       );
       if (category) {
         setCategory(category);
-        fetch(`https://sandbox.academiadevelopers.com/infosphere/articles/?category=${category.id}&page=${currentPage}&page_size=${articlesPerPage}`)
-          .then(response => response.json())
-          .then(data => {
-            setArticles(data.results);
-            setFilteredArticles(data.results);
-            setTotalArticles(data.count);
+        const articlePromises = category.articles.map(articleId =>
+          fetch(`https://sandbox.academiadevelopers.com/infosphere/articles/${articleId}`)
+            .then(response => response.json())
+        );
+        Promise.all(articlePromises)
+          .then(articles => {
+            setArticles(articles);
+            setFilteredArticles(articles);
+            setTotalArticles(articles.length);
             setIsLoading(false);
           })
           .catch(error => {
@@ -61,7 +64,7 @@ function CategoryArticles() {
         setIsLoading(false);
       }
     }
-  }, [categories, categoriaNombre, currentPage]);
+  }, [categories, categoriaNombre]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -77,18 +80,18 @@ function CategoryArticles() {
 
   if (isLoadingCategories) return (
     <div className="d-flex justify-content-center align-items-center vh-100">
-    <div className="text-center">
-      <Spinner animation="border" role="status" />
-    <p>Cargando categorías...</p>
+      <div className="text-center">
+        <Spinner animation="border" role="status" />
+        <p>Cargando categorías...</p>
+      </div>
     </div>
-  </div>
-  )
+  );
   if (isErrorCategories) return <p>Error al cargar las categorías</p>;
   if (isLoading) return (
     <div className="d-flex justify-content-center align-items-center vh-100">
-    <div className="text-center">
-      <Spinner animation="border" role="status" />
-      <p>Cargando artículos...</p>
+      <div className="text-center">
+        <Spinner animation="border" role="status" />
+        <p>Cargando artículos...</p>
       </div>
     </div>
   );
@@ -97,18 +100,18 @@ function CategoryArticles() {
   return (
     <div>
       <div className="home-container">
-        <Header 
-          onMouseEnter={handleMouseEnter} 
-          onMouseLeave={handleMouseLeave} 
+        <Header
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         />
-        <SubHeader 
-          isVisible={isSubheaderVisible} 
-          onMouseEnter={handleMouseEnter} 
-          onMouseLeave={handleMouseLeave} 
+        <SubHeader
+          isVisible={isSubheaderVisible}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         />
         <Container>
           <h1 className="text-center my-4 color3">Artículos de la categoría {categoriaNombre}</h1>
-          {token && ( // Mostrar el botón "Agregar Artículo" solo si el usuario está autenticado
+          {token && ( 
             <ul className="list-unstyled d-flex flex-wrap justify-content-center gap-3">
               <li className="add-category bg-warning text-center rounded p-2">
                 <Link to={`/articles/new`}>
@@ -118,7 +121,6 @@ function CategoryArticles() {
             </ul>
           )}
 
-          {/* Campo de búsqueda */}
           <Form className="mb-4">
             <Form.Control
               type="text"
@@ -142,7 +144,7 @@ function CategoryArticles() {
                     <Link to={`/articles/${article.id}`}>
                       <h5 className="color4">{article.title}</h5>
                     </Link>
-                    {token && ( // Mostrar los botones "Editar" y "Eliminar" solo si el usuario está autenticado
+                    {token && (
                       <div>
                         <Link to={`/articles/edit/${article.id}`} className="btn btn-primary mx-1">
                           Editar
