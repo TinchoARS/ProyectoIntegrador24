@@ -9,7 +9,7 @@ import useAuth from '../hooks/useAuth';
 
 function CategoriesList() {
   const [categories, isError, isLoading] = useFetch(
-    "https://sandbox.academiadevelopers.com/infosphere/categories/?page=1"
+    "https://sandbox.academiadevelopers.com/infosphere/categories/?page_size=50"
   );
   const { token } = useAuth();
 

@@ -16,7 +16,7 @@ export default function EditarCategoria() {
 
   // Fetch categories
   const [categories, isLoadingCategories, isErrorCategories] = useFetch(
-    'https://sandbox.academiadevelopers.com/infosphere/categories/?page=3'
+    'https://sandbox.academiadevelopers.com/infosphere/categories/?page_size=50'
   );
 
   useEffect(() => {

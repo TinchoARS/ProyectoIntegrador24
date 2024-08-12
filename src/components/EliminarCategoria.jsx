@@ -10,7 +10,7 @@ export default function EliminarCategoria() {
   
   // Fetch categories
   const [categories, isLoading, isError] = useFetch(
-    'https://sandbox.academiadevelopers.com/infosphere/categories/?page=3'
+    'https://sandbox.academiadevelopers.com/infosphere/categories/?page_size=50'
   );
   const [selectedCategoryId, setSelectedCategoryId] = useState('');
   const [deleting, setDeleting] = useState(false);

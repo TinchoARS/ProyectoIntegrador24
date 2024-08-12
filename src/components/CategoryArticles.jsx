@@ -27,7 +27,7 @@ function CategoryArticles() {
   };
 
   const [categories, isErrorCategories, isLoadingCategories] = useFetch(
-    "https://sandbox.academiadevelopers.com/infosphere/categories/?page=1"
+    "https://sandbox.academiadevelopers.com/infosphere/categories/?page_size=50"
   );
 
   useEffect(() => {
